@@ -1,4 +1,5 @@
 import pygame
+
 import random
 
 class Grid:
@@ -41,6 +42,9 @@ class Grid:
 
         return grid
 
+    def reset_map(self):
+        self.grid = self.create_block_cluster()
+
     def draw_map(self, screen):
         block_size = 10
         for y, row in enumerate(self.grid):
@@ -56,6 +60,14 @@ def open_close(running):
             running = False
     return running
 
+def new_map(grid):
+    for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                if event.key == pygame.K_r:
+                    grid.reset_map() 
+    return grid
+
+
 def main():
     pygame.init() 
     screen_size = (800, 800)
@@ -70,9 +82,12 @@ def main():
     while running:
         running = open_close(running)
         screen.fill((255, 255, 255))
+        
+        grid = new_map(grid)    
+                
 
+                
         grid.draw_map(screen)
-
         pygame.display.flip()
 
 
