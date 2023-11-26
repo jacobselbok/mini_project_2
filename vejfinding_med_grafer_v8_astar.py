@@ -8,7 +8,7 @@ class Grid:
         self.cluster_size = cluster_size
         self.start = start
         self.goal = goal
-        self.grid = self.create_block_cluster()
+        self.grid = self.start_stop_point()
 
     def make_grid(self):
         grid = []
@@ -19,10 +19,6 @@ class Grid:
                     grid[-1].append(1) 
                 elif x == 0 or x == self.size[0] - 1:
                     grid[-1].append(1)
-                elif x == self.start[0] and y == self.start[1]:
-                    grid[-1].append(2)
-                elif x == self.goal[0] and y == self.goal[1]:
-                    grid[-1].append(3)
                 else:
                     grid[-1].append(0)
         return grid   
@@ -44,6 +40,17 @@ class Grid:
                         grid[y][x] = 1
                     elif distance_to_center <= self.cluster_size and -2 < probability < 2:
                         grid[y][x] = 1
+        return grid
+
+    def start_stop_point(self):
+        grid = self.create_block_cluster()
+
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
+                if x == self.start[0] and y == self.start[1]:
+                    grid[y][x] = 2
+                elif x == self.goal[0] and y == self.goal[1]:
+                    grid[y][x] = 3
         return grid
 
     def draw_map(self, screen):
@@ -98,8 +105,6 @@ class Grid:
             path.append(current)
 
         return path[::-1]
-
-
 
 def open_close(running):
     for event in pygame.event.get():
