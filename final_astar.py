@@ -3,12 +3,12 @@ import random
 from heapq import heappush, heappop
 
 class Program: 
-    def __init__(self, size, cluster_size, start, goal):
+    def __init__(self, size, cluster_size, start, goal): # Self refers to the instance of "Program"
         self.size = size
         self.cluster_size = cluster_size
         self.start = start
         self.goal = goal
-        self.grid = self.start_goal_point() # Runs the "start_goal_point" method if "self.grid" is called
+        self.grid = self.start_goal_point() # Runs the "start_goal_point" method when a new instance of "Program" is run
 
     def make_grid(self): # Actually makes the initial grid
         grid = [] # Makes an empty list
@@ -54,7 +54,7 @@ class Program:
 
     def draw_map(self, screen): # Draws the final map
         tile = 10 # Size of each tile
-        for y, row in enumerate(self.grid): # Makes a grid by running the "start_stop_point" method
+        for y, row in enumerate(self.grid): # Draws a grid
             for x, value in enumerate(row):
                 if value == 1:
                     pygame.draw.rect(screen, (0, 0, 0), (x * tile, y * tile, tile, tile)) # Adds the blocking tiles
